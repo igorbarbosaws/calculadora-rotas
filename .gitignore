@@ -1,14 +1,10 @@
-# Variáveis de ambiente (Chaves de API e senhas)
 .env
 
-# Pastas de dependências (Muito pesadas para o GitHub)
 node_modules/
 
-# Arquivos de log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Arquivos do sistema
 .DS_Store
 Thumbs.db
