@@ -39,7 +39,7 @@ async function calcularTrajeto() {
 
     const URL_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:3000'
-        : 'https://calculadora-rotas.onrender.com';
+        : 'https://calculadora-rotas.onrender.com/';
 
     try {
         const res = await fetch(`${URL_BASE}/api/distancia?origem=${cidades[0]}&destino=${cidades[cidades.length-1]}`);
