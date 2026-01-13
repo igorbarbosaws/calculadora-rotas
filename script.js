@@ -1,7 +1,6 @@
 let map, directionsService, directionsRenderer;
 
 function initMap() {
-    // Inicializa o mapa centralizado no Brasil
     map = new google.maps.Map(document.getElementById("map-container"), {
         zoom: 4,
         center: { lat: -14.235, lng: -51.925 },
@@ -11,12 +10,10 @@ function initMap() {
     directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
 
-    // Ativa o autocomplete nos campos que já existem
     document.querySelectorAll(".cidade-input").forEach(input => ativarAutocomplete(input));
 }
 
 function ativarAutocomplete(elemento) {
-    // Configura o autocomplete apenas para cidades do Brasil
     new google.maps.places.Autocomplete(elemento, {
         types: ['(cities)'],
         componentRestrictions: { country: 'br' }
@@ -46,23 +43,19 @@ async function calcularTrajeto() {
         return;
     }
 
-    // --- CONFIGURAÇÃO DA URL DO SERVIDOR (AQUI ESTAVA O ERRO) ---
-    // Verifica se você está no computador (localhost) ou na internet
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     
     const URL_BASE = isLocal
         ? 'http://localhost:3000' 
-        : 'https://calculadora-rotas.onrender.com'; // Sua URL exata do Render sem barra no final
+        : 'https://calculadora-rotas.onrender.com';
 
-    console.log("Tentando conectar em:", URL_BASE); // Para debug no Console (F12)
+    console.log("Tentando conectar em:", URL_BASE);
 
     try {
-        // Monta a URL completa
         const endpoint = `${URL_BASE}/api/distancia?origem=${encodeURIComponent(cidades[0])}&destino=${encodeURIComponent(cidades[cidades.length-1])}`;
         
         const response = await fetch(endpoint);
 
-        // Tratamento específico para o erro 429 (Muitas requisições)
         if (response.status === 429) {
             throw new Error("Muitas solicitações seguidas. Aguarde alguns instantes e tente novamente.");
         }
@@ -73,7 +66,6 @@ async function calcularTrajeto() {
 
         const data = await response.json();
 
-        // Se o servidor retornou OK, desenha a rota
         if (data.status === "OK") {
             const waypoints = cidades.slice(1, -1).map(c => ({ location: c, stopover: true }));
             
@@ -86,14 +78,12 @@ async function calcularTrajeto() {
                 if (status === 'OK') {
                     directionsRenderer.setDirections(result);
                     
-                    // Soma das distâncias e tempos
                     let dist = 0, tempo = 0;
                     result.routes[0].legs.forEach(leg => {
                         dist += leg.distance.value;
                         tempo += leg.duration.value;
                     });
 
-                    // Exibe o resultado na tela
                     document.getElementById("txtDistancia").innerText = (dist / 1000).toFixed(1) + " km";
                     
                     const h = Math.floor(tempo / 3600);
@@ -115,5 +105,4 @@ async function calcularTrajeto() {
     }
 }
 
-// Garante que o mapa inicie assim que a janela carregar
 window.onload = initMap;
