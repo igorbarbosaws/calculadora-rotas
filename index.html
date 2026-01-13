@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Rotas Inteligente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="search-box">
+            <h1>Calcular Rota</h1>
+            
+            <div id="container-cidades" class="inputs-vertical">
+                <div class="input-row">
+                    <input type="text" class="cidade-input" placeholder="Origem (Cidade 1)">
+                </div>
+                <div class="input-row">
+                    <input type="text" class="cidade-input" placeholder="Destino Final">
+                    <button type="button" class="btn-add" onclick="adicionarCampo()">+</button>
+                </div>
+            </div>
+
+            <button id="btn-calcular" onclick="calcularTrajeto()">Consultar Rota</button>
+
+            <div id="resultado" class="hidden">
+                <div class="res-item"><strong>Distância Total:</strong> <span id="txtDistancia">---</span></div>
+                <div class="res-item"><strong>Tempo Estimado:</strong> <span id="txtTempo">---</span></div>
+            </div>
+        </div>
+
+        <div id="map-container"></div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKmMA4hX1zslNWGEikD_qHRuMeXJhb4Gw&libraries=places"></script>
+    <script src="script.js"></script>
+</body>
+</html>
