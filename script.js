@@ -30,7 +30,6 @@ function adicionarCampo() {
     `;
     container.insertBefore(div, container.lastElementChild);
     
-    // Ativa o autocomplete no novo campo criado
     ativarAutocomplete(div.querySelector(".cidade-input"));
 }
 
