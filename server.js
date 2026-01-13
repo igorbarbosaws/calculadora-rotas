@@ -2,19 +2,19 @@ require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-const rateLimit = require('express-rate-limit');
+//const rateLimit = require('express-rate-limit');
 const xss = require('xss');
 
 const app = express();
 
 app.use(cors());
 
-const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 20,
-    message: { error: "Muitas solicitações. Tente novamente em 15 minutos." }
-});
-app.use('/api/', apiLimiter);
+//const apiLimiter = rateLimit({
+//    windowMs: 15 * 60 * 1000,
+//    max: 20,
+//    message: { error: "Muitas solicitações. Tente novamente em 15 minutos." }
+//});
+//app.use('/api/', apiLimiter);
 
 app.get('/api/distancia', async (req, res) => {
     const origem = xss(req.query.origem);
